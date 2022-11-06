@@ -20,7 +20,8 @@ public class food {
         System.out.println("3.Search Food");
         System.out.println("4.update food");
         System.out.println("5.Delete dood ");
-        System.out.println("6.Exit ");
+        System.out.println("6.Search by character ");
+        System.out.println("7.Exit ");
         System.out.println("*****************");
         System.out.println("ENTER YOUR CHOICE:--");
         Scanner sc=new Scanner(System.in);
@@ -148,6 +149,33 @@ public class food {
                 }
                 break;
             case 6:
+                System.out.println("Search name of food by character");
+                System.out.println("enther a letter ");
+                String character=sc.next();
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/foodrecipe","root","");
+                    String sql="SELECT  `foodcode`, `name`, `description`, `preparedby`, `incrediance` FROM `recipe` WHERE `name` LIKE '"+character+"%'";
+                    Statement stmt=con.createStatement();
+                    ResultSet rs=stmt.executeQuery(sql);
+                    while (rs.next())
+                    {
+
+                        String getname = rs.getString(("name"));
+                        String getdescription = rs.getString(("description"));
+                        String getpreparedby = rs.getString(("preparedby"));
+                        String getincrediance = rs.getString(("incrediance"));
+                        System.out.println("Name=" + getname);
+                        System.out.println("Description=" + getdescription);
+                        System.out.println("Prepared by=" + getpreparedby);
+                        System.out.println("Incrediance=" + getincrediance);
+                        System.out.println("\n");
+                    }
+                }
+                catch (Exception e){
+                    System.out.println((e));
+                }
+            case 7:
                 System.exit(0);
         }
     }
