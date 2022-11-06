@@ -133,6 +133,19 @@ public class food {
                 break;
             case 5:
                 System.out.println("Delete Food");
+                System.out.println("Enter the food code to be deleted");
+                foodcode=sc.nextInt();
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/foodrecipe","root","");
+                    String sql ="DELETE FROM `recipe` WHERE `foodcode`="+String.valueOf(foodcode);
+                    Statement stmt=con.createStatement();
+                    stmt.executeUpdate(sql);
+                    System.out.println("deleted successfully.....");
+                }
+                catch (Exception e){
+                    System.out.println((e));
+                }
                 break;
             case 6:
                 System.exit(0);
