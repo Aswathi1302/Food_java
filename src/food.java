@@ -109,6 +109,27 @@ public class food {
                 break;
             case 4:
                 System.out.println("Update Food");
+                System.out.println("Enter the food code");
+                foodcode=sc.nextInt();
+                System.out.println("Enter the Name of food to be updated:");
+                name=sc.next();
+                System.out.println("Enter the Description to be updated--");
+                description=sc.next();
+                System.out.println("Enter cook name to be updated--");
+                preparedby=sc.next();
+                System.out.println("Enter incrediance to be updated:--");
+                incrediance=sc.next();
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/foodrecipe","root","");
+                    String sql="UPDATE `recipe` SET `name`='"+name+"',`description`='"+description+"',`preparedby`='"+preparedby+"',`incrediance`='"+incrediance+"' WHERE `foodcode`="+String.valueOf(foodcode);
+                    Statement stmt=con.createStatement();
+                    stmt.executeUpdate(sql);
+                }
+                catch (Exception e){
+                    System.out.println((e));
+                }
+
                 break;
             case 5:
                 System.out.println("Delete Food");
