@@ -1,6 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import  java.util.Scanner;
 public class food {
     public static void main(String[] args) {
@@ -18,10 +16,11 @@ public class food {
     {
         System.out.println("Select the option");
         System.out.println("1.Add Food");
-        System.out.println("2.Search Food");
-        System.out.println("3.Delete Food");
-        System.out.println("4.View all food");
-        System.out.println("5.Exit");
+        System.out.println("2.View all Food");
+        System.out.println("3.Search Food");
+        System.out.println("4.update food");
+        System.out.println("5.Delete dood ");
+        System.out.println("6.Exit ");
         System.out.println("*****************");
         System.out.println("ENTER YOUR CHOICE:--");
         Scanner sc=new Scanner(System.in);
@@ -57,15 +56,41 @@ public class food {
                 }
                 break;
             case 2:
-                System.out.println("Search Food");
+                System.out.println("View all Food");
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/foodrecipe","root","");
+                    String sql="SELECT `foodcode`, `name`, `description`, `preparedby`, `incrediance` FROM `recipe` ";
+                    Statement stmt=con.createStatement();
+                    ResultSet rs=stmt.executeQuery(sql);
+                    while ((rs.next())) {
+                        String getfoodcode = rs.getString(("foodcode"));
+                        String getname = rs.getString(("name"));
+                        String getdescription = rs.getString(("description"));
+                        String getpreparedby = rs.getString(("preparedby"));
+                        String getincrediance = rs.getString(("incrediance"));
+                        System.out.println("Food code=" + getfoodcode);
+                        System.out.println("Name=" + getname);
+                        System.out.println("Description=" + getdescription);
+                        System.out.println("Prepared by=" + getpreparedby);
+                        System.out.println("Compney name=" + getincrediance);
+                        System.out.println("\n");
+                    }
+                }
+                catch (Exception e){
+                    System.out.println((e));
+                }
                 break;
             case 3:
-                System.out.println("Delete Food");
+                System.out.println("Search Food");
                 break;
             case 4:
-                System.out.println("View all Food");
+                System.out.println("Update Food");
                 break;
             case 5:
+                System.out.println("Delete Food");
+                break;
+            case 6:
                 System.exit(0);
         }
     }
