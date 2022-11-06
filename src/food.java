@@ -83,6 +83,29 @@ public class food {
                 break;
             case 3:
                 System.out.println("Search Food");
+                System.out.println("Enter the Food code:");
+                foodcode=sc.nextInt();
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/foodrecipe","root","");
+                    String sql = "SELECT `name`, `description`, `preparedby`, `incrediance` FROM `recipe` WHERE `foodcode`="+String.valueOf(foodcode);
+                    Statement stmt=con.createStatement();
+                    ResultSet rs=stmt.executeQuery(sql);
+                    while ((rs.next())) {
+                        String getname = rs.getString(("name"));
+                        String getdescription = rs.getString(("description"));
+                        String getpreparedby = rs.getString(("preparedby"));
+                        String getincrediance = rs.getString(("incrediance"));
+                        System.out.println("Name=" + getname);
+                        System.out.println("Description=" + getdescription);
+                        System.out.println("Prepared by=" + getpreparedby);
+                        System.out.println("Compney name=" + getincrediance);
+                        System.out.println("\n");
+                    }
+                }
+                catch (Exception e){
+                    System.out.println((e));
+                }
                 break;
             case 4:
                 System.out.println("Update Food");
